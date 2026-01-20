@@ -193,17 +193,13 @@ const ProjectCard = ({ project, index, onClick }) => {
 const ProjectModal = ({ project, onClose }) => {
   const Icon = project.icon
 
-  // Lock body scroll and stop Lenis when modal is open
   useEffect(() => {
-    // Stop Lenis smooth scroll
     if (window.lenis) {
       window.lenis.stop()
     }
-    // Also prevent native scrolling as fallback
     document.body.style.overflow = 'hidden'
     
     return () => {
-      // Resume Lenis smooth scroll
       if (window.lenis) {
         window.lenis.start()
       }
@@ -223,12 +219,11 @@ const ProjectModal = ({ project, onClose }) => {
         zIndex: 99999,
       }}
     >
-      {/* Backdrop - fully opaque base layer */}
+      {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-[#0a0a1a]" 
         style={{ zIndex: 1 }}
       />
-      {/* Blur overlay */}
       <motion.div
         className="fixed inset-0 bg-deep-navy/90 backdrop-blur-2xl"
         initial={{ opacity: 0 }}
@@ -237,15 +232,18 @@ const ProjectModal = ({ project, onClose }) => {
         style={{ zIndex: 2 }}
       />
 
-      {/* Modal Container - flex centering with safe padding */}
-      <div className="min-h-full flex items-center justify-center py-16 px-4 md:py-12 md:px-8" style={{ zIndex: 3 }}>
-        {/* Modal */}
+      {/* Modal Container - reduced padding on mobile */}
+      <div 
+        className="min-h-full flex items-center justify-center py-8 px-4 md:py-12 md:px-8" 
+        style={{ zIndex: 3 }}
+      >
+        {/* Modal - added max-height and overflow-y-auto */}
         <motion.div
-          className="relative w-full max-w-3xl overflow-hidden glass-card p-6 md:p-12"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 30 }}
-          transition={{ type: "spring", duration: 0.4, bounce: 0.15 }}
+          className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto glass-card p-6 md:p-12"
+          initial={{ opacity: 0, y: 20, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.98 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
           onClick={(e) => e.stopPropagation()}
         >
         {/* Close Button */}
