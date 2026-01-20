@@ -14,7 +14,7 @@ const projects = [
     highlights: [
       'Statistical analysis using Sharpe ratio, alpha, p-values with automated trade execution',
       'Implemented portfolio optimizations (momentum, post-earnings-announcement drift) achieving 22% annualized return over 6-month period',
-      'Developed serverless architecture processing 10K+ market data points/minute with real-time analytics dashboard',
+      'Developed serverless architecture processing dozens of market data points/minute with real-time analytics dashboard',
     ],
   },
   {
@@ -213,7 +213,7 @@ const ProjectModal = ({ project, onClose }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 flex items-start justify-center pt-20 pb-8 px-4 md:px-8 overflow-y-auto"
+      className="fixed inset-0 flex items-center justify-center p-4 md:p-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -239,7 +239,7 @@ const ProjectModal = ({ project, onClose }) => {
 
       {/* Modal */}
       <motion.div
-        className="relative w-full max-w-3xl glass-card p-8 md:p-12 my-auto"
+        className="relative w-full max-w-3xl max-h-[85vh] md:max-h-[90vh] overflow-y-auto glass-card p-6 md:p-12"
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
