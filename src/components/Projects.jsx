@@ -213,7 +213,7 @@ const ProjectModal = ({ project, onClose }) => {
 
   return (
     <motion.div
-      className="fixed inset-0 flex items-center justify-center p-4 md:p-8"
+      className="fixed inset-0 overflow-y-auto"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -237,16 +237,17 @@ const ProjectModal = ({ project, onClose }) => {
         style={{ zIndex: 2 }}
       />
 
-      {/* Modal */}
-      <motion.div
-        className="relative w-full max-w-3xl max-h-[85vh] md:max-h-[90vh] overflow-y-auto glass-card p-6 md:p-12"
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        transition={{ type: "spring", duration: 0.5, bounce: 0.2 }}
-        onClick={(e) => e.stopPropagation()}
-        style={{ zIndex: 3 }}
-      >
+      {/* Modal Container - flex centering with safe padding */}
+      <div className="min-h-full flex items-center justify-center py-16 px-4 md:py-12 md:px-8" style={{ zIndex: 3 }}>
+        {/* Modal */}
+        <motion.div
+          className="relative w-full max-w-3xl overflow-hidden glass-card p-6 md:p-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 30 }}
+          transition={{ type: "spring", duration: 0.4, bounce: 0.15 }}
+          onClick={(e) => e.stopPropagation()}
+        >
         {/* Close Button */}
         <motion.button
           className="absolute top-4 right-4 w-10 h-10 rounded-full glass flex items-center justify-center text-white/70 hover:text-white"
