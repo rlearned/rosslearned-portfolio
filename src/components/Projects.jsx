@@ -109,7 +109,6 @@ const ProjectCard = ({ project, index, onClick }) => {
               : '0 8px 32px rgba(0, 0, 0, 0.3)',
           }}
         >
-          {/* Accent Line */}
           <motion.div
             className="absolute top-0 left-0 h-1 rounded-t-3xl"
             style={{ backgroundColor: project.color }}
@@ -119,7 +118,6 @@ const ProjectCard = ({ project, index, onClick }) => {
             transition={{ duration: 0.8, delay: index * 0.15 + 0.3 }}
           />
 
-          {/* Icon */}
           <motion.div
             className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6"
             style={{ backgroundColor: `${project.color}20` }}
@@ -128,7 +126,6 @@ const ProjectCard = ({ project, index, onClick }) => {
             <Icon className="w-7 h-7" style={{ color: project.color }} />
           </motion.div>
 
-          {/* Title */}
           <h3 
             className="text-2xl font-bold mb-2"
             style={{ 
@@ -142,12 +139,10 @@ const ProjectCard = ({ project, index, onClick }) => {
           
           <p className="text-white/70 text-sm font-medium mb-4">{project.tagline}</p>
 
-          {/* Description Preview */}
           <p className="text-white/60 text-sm leading-relaxed mb-6 line-clamp-3">
             {project.description}
           </p>
 
-          {/* Tech Stack Preview */}
           <div className="flex flex-wrap gap-2 mb-4">
             {project.techStack.slice(0, 3).map((tech) => (
               <span
@@ -164,7 +159,6 @@ const ProjectCard = ({ project, index, onClick }) => {
             )}
           </div>
 
-          {/* View More Hint */}
           <motion.div
             className="flex items-center gap-2 text-sm font-medium"
             style={{ color: project.color }}
@@ -174,7 +168,6 @@ const ProjectCard = ({ project, index, onClick }) => {
             <ChevronRight className="w-4 h-4" />
           </motion.div>
 
-          {/* Hover Glow */}
           <motion.div
             className="absolute -bottom-20 -right-20 w-40 h-40 rounded-full blur-3xl pointer-events-none"
             style={{ backgroundColor: project.color }}
@@ -208,160 +201,111 @@ const ProjectModal = ({ project, onClose }) => {
   }, [])
 
   return (
-    <motion.div
-      className="fixed inset-0 overflow-y-auto"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+    <div
+      className="fixed inset-0"
       onClick={onClose}
-      style={{ 
-        isolation: 'isolate',
-        zIndex: 99999,
-      }}
+      style={{ zIndex: 99999 }}
     >
-      {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-[#0a0a1a]" 
-        style={{ zIndex: 1 }}
-      />
-      <motion.div
-        className="fixed inset-0 bg-deep-navy/90 backdrop-blur-2xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        style={{ zIndex: 2 }}
-      />
+      {/* Solid backdrop */}
+      <div className="absolute inset-0 bg-[#0a0a1a]/95 backdrop-blur-sm" />
 
-      {/* Modal Container - reduced padding on mobile */}
-      <div 
-        className="min-h-full flex items-center justify-center py-8 px-4 md:py-12 md:px-8" 
-        style={{ zIndex: 3 }}
-      >
-        {/* Modal - added max-height and overflow-y-auto */}
-        <motion.div
-          className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto glass-card p-6 md:p-12"
-          initial={{ opacity: 0, y: 20, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.98 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-          onClick={(e) => e.stopPropagation()}
-        >
-        {/* Close Button */}
-        <motion.button
-          className="absolute top-4 right-4 w-10 h-10 rounded-full glass flex items-center justify-center text-white/70 hover:text-white"
-          onClick={onClose}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <X className="w-5 h-5" />
-        </motion.button>
-
-        {/* Accent Line */}
-        <div
-          className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl"
-          style={{ backgroundColor: project.color }}
-        />
-
-        {/* Header */}
-        <div className="flex items-start gap-4 mb-8">
-          <motion.div
-            className="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0"
-            style={{ backgroundColor: `${project.color}20` }}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring" }}
+      {/* Scrollable container - starts from top, not centered */}
+      <div className="absolute inset-0 overflow-y-auto overscroll-contain">
+        <div className="flex justify-center px-4 py-16 md:py-20 md:px-8">
+          {/* Modal card - no animations */}
+          <div
+            className="relative w-full max-w-3xl glass-card p-6 md:p-12"
+            onClick={(e) => e.stopPropagation()}
           >
-            <Icon className="w-8 h-8" style={{ color: project.color }} />
-          </motion.div>
-          <div>
-            <h2 
-              className="text-3xl md:text-4xl font-bold mb-2"
-              style={{ 
-                background: `linear-gradient(135deg, ${project.color} 0%, ${project.color}cc 100%)`,
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
+            {/* Close Button */}
+            <button
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-colors z-10"
+              onClick={onClose}
             >
-              {project.name}
-            </h2>
-            <p className="text-lg text-white/70">{project.tagline}</p>
-            {project.role && (
-              <span className="inline-block mt-2 px-3 py-1 text-sm rounded-full bg-white/10 text-white/80">
-                {project.role}
-              </span>
-            )}
-            {project.dates && (
-              <span className="inline-block mt-2 ml-2 px-3 py-1 text-sm rounded-full bg-white/5 text-white/60">
-                {project.dates}
-              </span>
-            )}
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Accent Line */}
+            <div
+              className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl"
+              style={{ backgroundColor: project.color }}
+            />
+
+            {/* Header */}
+            <div className="flex items-start gap-4 mb-8 pr-12">
+              <div
+                className="w-16 h-16 rounded-2xl flex items-center justify-center shrink-0"
+                style={{ backgroundColor: `${project.color}20` }}
+              >
+                <Icon className="w-8 h-8" style={{ color: project.color }} />
+              </div>
+              <div>
+                <h2 
+                  className="text-2xl md:text-4xl font-bold mb-2"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${project.color} 0%, ${project.color}cc 100%)`,
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                  }}
+                >
+                  {project.name}
+                </h2>
+                <p className="text-lg text-white/70">{project.tagline}</p>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {project.role && (
+                    <span className="px-3 py-1 text-sm rounded-full bg-white/10 text-white/80">
+                      {project.role}
+                    </span>
+                  )}
+                  {project.dates && (
+                    <span className="px-3 py-1 text-sm rounded-full bg-white/5 text-white/60">
+                      {project.dates}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Description */}
+            <p className="text-lg text-white/80 leading-relaxed mb-8">
+              {project.description}
+            </p>
+
+            {/* Tech Stack */}
+            <div className="mb-8">
+              <h3 className="text-sm font-semibold text-accent-purple mb-4 uppercase tracking-wider">
+                Technologies Used
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {project.techStack.map((tech) => (
+                  <span key={tech} className="tech-badge">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Highlights */}
+            <div>
+              <h3 className="text-sm font-semibold text-accent-purple mb-4 uppercase tracking-wider">
+                Key Achievements
+              </h3>
+              <ul className="space-y-4">
+                {project.highlights.map((highlight, i) => (
+                  <li key={i} className="flex items-start gap-3 text-white/80">
+                    <ChevronRight 
+                      className="w-5 h-5 mt-0.5 shrink-0" 
+                      style={{ color: project.color }}
+                    />
+                    <span className="leading-relaxed">{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-
-        {/* Description */}
-        <motion.p
-          className="text-lg text-white/80 leading-relaxed mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          {project.description}
-        </motion.p>
-
-        {/* Tech Stack */}
-        <motion.div
-          className="mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <h3 className="text-sm font-semibold text-accent-purple mb-4 uppercase tracking-wider">
-            Technologies Used
-          </h3>
-          <div className="flex flex-wrap gap-2">
-            {project.techStack.map((tech, i) => (
-              <motion.span
-                key={tech}
-                className="tech-badge"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 + i * 0.05 }}
-              >
-                {tech}
-              </motion.span>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Highlights */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-        >
-          <h3 className="text-sm font-semibold text-accent-purple mb-4 uppercase tracking-wider">
-            Key Achievements
-          </h3>
-          <ul className="space-y-4">
-            {project.highlights.map((highlight, i) => (
-              <motion.li
-                key={i}
-                className="flex items-start gap-3 text-white/80"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 + i * 0.1 }}
-              >
-                <ChevronRight 
-                  className="w-5 h-5 mt-0.5 shrink-0" 
-                  style={{ color: project.color }}
-                />
-                <span className="leading-relaxed">{highlight}</span>
-              </motion.li>
-            ))}
-          </ul>
-        </motion.div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   )
 }
 
