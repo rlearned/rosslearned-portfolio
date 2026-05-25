@@ -7,6 +7,7 @@ import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import About from './components/About'
 import Experience from './components/Experience'
+import Capstone from './components/Capstone'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
 import NoiseOverlay from './components/NoiseOverlay'
@@ -72,6 +73,7 @@ function App() {
             <Hero />
             <About />
             <Experience />
+            <Capstone />
             <Projects />
             <Contact />
           </main>
